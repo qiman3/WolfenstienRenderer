@@ -5,26 +5,38 @@ using namespace std;
 
 const int WIDTH = 800, HEIGHT = 600;
 
+struct Wall
+{
+    SDL_Color lightColor;
+    SDL_Color darkColor;
+};
+
+
 int main(int argc, char *argv[])
 {
     //Game Logic
     int map[10][10] = {
         {1,1,1,1,1,1,1,1,1,1},
         {1,0,0,0,0,0,0,0,0,1},
-        {1,0,1,1,0,0,1,1,0,1},
-        {1,0,1,1,0,0,1,1,0,1},
+        {1,0,2,2,0,0,2,2,0,1},
+        {1,0,2,2,0,0,2,2,0,1},
         {1,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,1},
-        {1,0,1,1,1,1,1,1,0,1},
+        {1,0,3,3,3,3,3,3,0,1},
         {1,0,0,0,1,1,0,0,0,1},
         {1,0,0,0,1,1,0,0,0,1},
         {1,1,1,1,1,1,1,1,1,1}
     }; 
+    Wall allWalls[3] = {
+        {{255, 163, 117}, {255, 163, 117}},
+        {{159, 164, 196},{158, 118, 143}},
+        {{183, 182, 194},{131, 117, 105}}
+    };
     float speed = 5;
     float rotationSpeed = 3;
     double xPos= 5, yPos = 5;
     double xDir = -1, yDir = 0;
-    double xPlane = 0, yPlane = 0.66;
+    double xPlane = 0, yPlane = 0.7;
 
     double time = 0;
     double oldTime = 0;
@@ -136,12 +148,14 @@ int main(int argc, char *argv[])
             int drawEnd = lineHeight / 2 + HEIGHT / 2;
             if (drawEnd > HEIGHT) drawEnd = HEIGHT; 
             
+            Wall curWall = allWalls[map[xMap][yMap]];
+
             if (side == 0)
             {
-                SDL_SetRenderDrawColor(gRenderer,255, 163, 117, 0xFF);
+                SDL_SetRenderDrawColor(gRenderer,curWall.lightColor.r, curWall.lightColor.g, curWall.lightColor.b, 0xFF);
             }
             else{
-                SDL_SetRenderDrawColor(gRenderer,173, 73, 45, 0xff);
+                SDL_SetRenderDrawColor(gRenderer,curWall.darkColor.r, curWall.darkColor.g, curWall.darkColor.b, 0xff);
             }
             
             SDL_RenderDrawLine(gRenderer, x, drawStart, x, drawEnd);
