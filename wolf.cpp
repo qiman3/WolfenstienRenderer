@@ -28,9 +28,9 @@ int main(int argc, char *argv[])
         {1,1,1,1,1,1,1,1,1,1}
     }; 
     Wall allWalls[3] = {
-        {{255, 163, 117}, {255, 163, 117}},
-        {{159, 164, 196},{158, 118, 143}},
-        {{183, 182, 194},{131, 117, 105}}
+        {{0, 0, 255}, {0, 0, 128}},
+        {{0, 255, 0}, {0, 128, 0}},
+        {{255, 0, 0}, {128, 0, 0}}
     };
     float speed = 5;
     float rotationSpeed = 3;
@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
             int drawEnd = lineHeight / 2 + HEIGHT / 2;
             if (drawEnd > HEIGHT) drawEnd = HEIGHT; 
             
-            Wall curWall = allWalls[map[xMap][yMap]];
+            Wall curWall = allWalls[map[xMap][yMap]-1];
 
             if (side == 0)
             {
